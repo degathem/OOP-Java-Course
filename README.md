@@ -1,3 +1,7 @@
+*Object Oriented Java Coursera from UC San Diego
+
+I am using github to store code related to this course https://www.coursera.org/learn/object-oriented-java/
+
 unfolding_app_template and UC San Diego/Coursera MOOC starter code
 ==================================================================
 
