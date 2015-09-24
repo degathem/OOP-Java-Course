@@ -79,7 +79,7 @@ public class HelloWorld extends PApplet
 		
 		// TODO: Add code here that creates map2 
 		// Then you'll modify draw() below
-		map2 = new UnfoldingMap(this, 425, 50, 350, 500);
+		map2 = new UnfoldingMap(this, 425, 50, 350, 500, esriProvider);
 		
 		//map2.zoomAndPanTo(zoomLevel, new Location(51f,-114f));
 		
