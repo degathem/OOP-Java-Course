@@ -24,8 +24,8 @@ import parsing.ParseFeed;
 /** EarthquakeCityMap
  * An application with an interactive map displaying earthquake data.
  * Author: UC San Diego Intermediate Software Development MOOC team
- * @author Your name here
- * Date: July 17, 2015
+ * @author Cameron Gillespie
+ * Date: September 27, 2015
  * */
 public class EarthquakeCityMap extends PApplet {
 
@@ -81,6 +81,7 @@ public class EarthquakeCityMap extends PApplet {
 	    	Object magObj = f.getProperty("magnitude");
 	    	float mag = Float.parseFloat(magObj.toString());
 	    	// PointFeatures also have a getLocation method
+	    	
 	    }
 	    
 	    // Here is an example of how to use Processing's color method to generate 
@@ -88,6 +89,15 @@ public class EarthquakeCityMap extends PApplet {
 	    int yellow = color(255, 255, 0);
 	    
 	    //TODO: Add code here as appropriate
+	    for (PointFeature feature : earthquakes) {
+	    	
+	    	
+	    	markers.add(createMarker(feature));
+	    	
+	    	System.out.println(feature.getProperties());
+	    }
+	    
+	    map.addMarkers(markers);
 	}
 		
 	// A suggested helper method that takes in an earthquake feature and 
@@ -96,7 +106,27 @@ public class EarthquakeCityMap extends PApplet {
 	private SimplePointMarker createMarker(PointFeature feature)
 	{
 		// finish implementing and use this method, if it helps.
-		return new SimplePointMarker(feature.getLocation());
+		int color;
+		float radius;
+		
+		Object magObj = feature.getProperty("magnitude");
+    	float mag = Float.parseFloat(magObj.toString());
+    	
+		SimplePointMarker styledMarker = new SimplePointMarker();
+		
+		styledMarker.setLocation(feature.getLocation());
+		radius = map(mag, 0, 10, 0, 30);
+		if (mag < 4.0f) {
+			color = color(0,0,255);
+			
+		} else if (mag >= 4.0f || mag < 5.0f) {
+			color = color(255,255,0);
+		} else {
+			color = color(212,144,144);
+		}
+		styledMarker.setColor(color);
+		styledMarker.setRadius(radius);
+		return styledMarker;
 	}
 	
 	public void draw() {
