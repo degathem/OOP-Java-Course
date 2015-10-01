@@ -51,10 +51,20 @@ public class Student extends Person
 }
 ```
 * Explain the relationship between a superclass and a subclass
-  *
+  * A subclass inherits from a superclass
+  * the subclass's inherted fields and methods are determined by visibility modifiers
+  * Less Restrictive: public - can access from any class
+  * | protected - can access from: same class, same package, any subclass
+  * | package - can access from: same class, same package
+  * V private - can only access within class
+  * More Restrictive: private - can only access the same class
+  * RoT: variables private, methods public 
 * Use UML Diagrams to display class hierarchies
   * Stand for 'Unneccessary Managment Lingo'
+  * A way of visually architecting a and OO based program
 * Explain an “is-a” relationship between classes
+  * Subclass is a superclass, not viseversa
+  * e.g. Toyota is-a car
 * Recognize that all classes inherit from the Object class
 * Describe how Java object construction occurs from the inside out
 * Discuss how the Java Compiler ensures object construction occurs from the inside out
