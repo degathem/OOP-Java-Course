@@ -66,11 +66,28 @@ public class Student extends Person
   * Subclass is a superclass, not viseversa
   * e.g. Toyota is-a car
 * Recognize that all classes inherit from the Object class
+  * How does this work? Related to object creation
 * Describe how Java object construction occurs from the inside out
+  * When you declare any object variable and initialize it (new keyword) it allocates space for the object in memory
+  * when object is initialize it initializes the variables in the class from the inside out, ie up through the superclass(es) all the way to Object
 * Discuss how the Java Compiler ensures object construction occurs from the inside out
+  * The compiler will actually add code during compilation
+  * specifially if a class isn't inherited from any other class, java compiler will add extends Object to the class declaration
+  * 3 rules of java compiler
+    1. No superclass? Javac inserts extends Object
+    2. No constructor? Java gives you one
+    3. The first line of a constructer must start with this() - same class constructor or super() - super is a call to the superclass constructor. Otherwise the compiler inserts super()
+```java
+class Student extends Object {
+  private int studentId;
+  ...
+}
+```
 * Use same-class and super class constructors in class creation
 * Create methods which override from a superclass
 * Contrast method overloading and method overriding
+  * overloading: class has same method name with different parameters (must return the same value)
+  * overriding: SUBclass has same method name with same parameters as the superclass
 * Explain the purpose of polymorphism
 * Step through decisions made at compile time and runtime
 * Use casting of objects to aid the compiler
