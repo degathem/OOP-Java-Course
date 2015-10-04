@@ -71,11 +71,12 @@ public class Student extends Person
   * When you declare any object variable and initialize it (new keyword) it allocates space for the object in memory
   * when object is initialize it initializes the variables in the class from the inside out, ie up through the superclass(es) all the way to Object
 * Discuss how the Java Compiler ensures object construction occurs from the inside out
+  * Compiler rules
   * The compiler will actually add code during compilation
   * specifially if a class isn't inherited from any other class, java compiler will add extends Object to the class declaration
   * 3 rules of java compiler
     1. No superclass? Javac inserts extends Object
-    2. No constructor? Java gives you one
+    2. No constructor? Java gives you one default constructor with no arguments 
     3. The first line of a constructer must start with this() - same class constructor or super() - super is a call to the superclass constructor. Otherwise the compiler inserts super()
 ```java
 class Student extends Object {
@@ -84,13 +85,32 @@ class Student extends Object {
 }
 ```
 * Use same-class and super class constructors in class creation
+  - super() or this() must be the first line of the constructor if calling it
+  - java will not automatically insert a no argument constructor into a class is any constructor already exists, so if a subclass doesn't have a call the the other constructor in the super class there will be a compile time error (because java will insert super() ie call to the no argument constructor) 
 * Create methods which override from a superclass
+  - Keep common behaivor in one class, spliet different behavoir into separate classes
 * Contrast method overloading and method overriding
   * overloading: class has same method name with different parameters (must return the same value)
   * overriding: SUBclass has same method name with same parameters as the superclass
+    - example Object class has toString() method, any class can override toString() because every class inherits from Object
 * Explain the purpose of polymorphism
+  - 
 * Step through decisions made at compile time and runtime
+  - think like a compiler, act like a runtime environment
+  - complier interprets the code
+  - runtime executes the code
+  - compile time rules
+    + compiler only knows the reference type 
+    + can only look in the reference type class for method
+    + Outputs a method signature, which is executed at runtime
+  - runtime rules
+    + follow exact runtime type of object to find method
+    + must match compile time method signature to appropriate method in actual object's class
 * Use casting of objects to aid the compiler
+  - automatic type promotion - widening
+    + primative int to double
+    + object
+  - instanceof runtime check of is-a relationship s instanceof Student, returns boolean
 * Use the keyword "abstract"
 * Compare “inheritance of implementation” and “inheritance of interface”
 * Decide between Abstract Classes and Interfaces
