@@ -106,11 +106,16 @@ class Student extends Object {
   - runtime rules
     + follow exact runtime type of object to find method
     + must match compile time method signature to appropriate method in actual object's class
+  - super binds at compile time, this binds at runtime
 * Use casting of objects to aid the compiler
   - automatic type promotion - widening
     + primative int to double
-    + object
+    + object subclass to superclass
   - instanceof runtime check of is-a relationship s instanceof Student, returns boolean
 * Use the keyword "abstract"
+  - abstract is placed before a class definition to create an abstract class
+```java
+
+```
 * Compare “inheritance of implementation” and “inheritance of interface”
 * Decide between Abstract Classes and Interfaces
