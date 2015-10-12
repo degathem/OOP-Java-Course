@@ -52,6 +52,12 @@ public class CityMarker extends CommonMarker {
 	{
 		
 		// TODO: Implement this method
+		pg.fill(255, 255, 255);
+		pg.rect(x - 5, y - 15, pg.textWidth(getCity())+5, 20);
+		
+		pg.fill(0, 0, 0);
+		
+		pg.text(getCity(), x, y);
 	}
 	
 	
