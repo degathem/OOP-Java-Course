@@ -1,5 +1,7 @@
 package demos;
 
+//import module6.Airport;
+
 /** A class to represent Airport data.
  * Used in module 6 of the UC San Diego MOOC Object Oriented Programming in Java
  * 
@@ -74,6 +76,15 @@ public class Airport {
 		return dbTimezone;
 	}
 	
-	
+	public static String findAirportCode(String toFind, Airport[] airports) {
+		int count = 0;
+		while (count < airports.length) {
+			if (toFind == airports[count].getCity()) {
+				return airports[count].getCode3();
+			}
+			count = count + 1;
+		}
+		return "Airport not found";
+	}
 	
 }
