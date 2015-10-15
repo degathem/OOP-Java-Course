@@ -170,8 +170,24 @@ public class EarthquakeCityMap extends PApplet {
 		// TODO: Implement this method
 		// Hint: You probably want a helper method or two to keep this code
 		// from getting too long/disorganized
+		// clear the last selection
+		if (lastClicked != null) {
+			lastClicked.setClicked(false);
+			lastClicked = null;
+		
+		}
+		hideMarkers(quakeMarkers);
 	}
 	
+	public void hideMarkers(List<Marker> markers) {
+		
+		for (Marker marker: markers) {	
+			marker.setHidden(true);
+			if (marker.isInside(map, mouseX, mouseY)) {
+				lastClicked = (CommonMarker)marker;
+			}
+		}
+	}
 	
 	// loop over and unhide all markers
 	private void unhideMarkers() {
@@ -310,7 +326,7 @@ public class EarthquakeCityMap extends PApplet {
 				// checking if inside
 				if(((AbstractShapeMarker)marker).isInsideByLocation(checkLoc)) {
 					earthquake.addProperty("country", country.getProperty("name"));
-						
+					
 					// return if is inside one
 					return true;
 				}
