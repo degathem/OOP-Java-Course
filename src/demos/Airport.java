@@ -76,7 +76,7 @@ public class Airport {
 		return dbTimezone;
 	}
 	
-	public static String findAirportCode(String toFind, Airport[] airports) {
+	public static String linearSearch(String toFind, Airport[] airports) {
 		int count = 0;
 		while (count < airports.length) {
 			if (toFind == airports[count].getCity()) {
@@ -85,6 +85,45 @@ public class Airport {
 			count = count + 1;
 		}
 		return "Airport not found";
+	}
+	
+	public static String binarySearch(String toFind, Airport[] airports) {
+		int high = airports.length;
+		int low = 0;
+		
+		while (low <= high) {
+			int mid = (high + low)/2;
+			
+			if (toFind.compareTo(airports[mid].getCity()) > 0) {
+				low = mid - 1;
+			} else if (toFind.compareTo(airports[mid].getCity()) < 0) {
+				high = mid + 1;
+			} else {
+				return airports[mid].getCode3();
+			}
+		}
+		return null;
+	}
+	
+	public static Airport[] selectionSort(Airport[] airports) {
+		
+		//for (int i = 0; i < airports.length; i++) {}
+		for (int i = 0; i < airports.length - 1; i++) {
+
+			Airport lowestcandidate = airports[i];
+			Airport currentairport = airports[i];
+			int swapposition = i;
+			for (int j = i + 1; j < airports.length; j++){
+				int compareresult = lowestcandidate.getCity().compareTo(airports[j].getCity());
+				if (compareresult < 0) {
+					lowestcandidate = airports[j];
+					swapposition = j;
+				}
+			}
+			airports[i] = lowestcandidate;
+			airports[swapposition] = currentairport;
+		}
+		return airports;
 	}
 	
 }

@@ -119,3 +119,22 @@ class Student extends Object {
 ```
 * Compare “inheritance of implementation” and “inheritance of interface”
 * Decide between Abstract Classes and Interfaces
+
+## Week 5
+* Motivate the importance of search
+  - Searching is obviously important
+  - efficient searching is even more important for user expectation and machine efficiency
+* Write code to perform a linear search
+* Explain the binary search algorithm
+* Write code to perform binary search
+* Describe the conditions necessary for binary search
+* Explain why binary search is better than linear search
+* Define sorting
+* Explain why sorting data can be useful
+* Explain the selection sort algorithm
+* Write code to perform selection sort
+* Trace code and describe its high-level function
+* Describe alternate algorithms for sorting
+* Use pre-defined Java method to sort
+* Explain the properties of the built-in sort
+* Define and use the Comparable interface in Java
