@@ -139,6 +139,10 @@ public class EarthquakeCityMap extends PApplet {
 	// TODO: Add the method:
 	//   private void sortAndPrint(int numToPrint)
 	// and then call that method from setUp
+	private void sortAndPrint(int numToPrint) {
+		
+	}
+	
 	
 	/** Event handler that gets called automatically when the 
 	 * mouse moves.

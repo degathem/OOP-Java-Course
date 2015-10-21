@@ -137,4 +137,8 @@ class Student extends Object {
 * Describe alternate algorithms for sorting
 * Use pre-defined Java method to sort
 * Explain the properties of the built-in sort
+    - Collections.sort() - can only take in a List of type integer
 * Define and use the Comparable interface in Java
+    - Must implement the interface Comparable, but need to tell the class on which class property to sort on
+    - error after adding the implements Comparable to EarthquakeMarker
+    - The type LandQuakeMarker must implement the inherited abstract method Comparable<EarthquakeMarker>.compareTo(EarthquakeMarker)
