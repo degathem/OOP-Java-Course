@@ -124,7 +124,8 @@ public class EarthquakeCityMap extends PApplet {
 	    //           for their geometric properties
 	    map.addMarkers(quakeMarkers);
 	    map.addMarkers(cityMarkers);
-	    sortAndPrint(quakeMarkers.size());
+	    
+	    sortAndPrint(10);
 	    
 	}  // End setup
 	
@@ -141,17 +142,18 @@ public class EarthquakeCityMap extends PApplet {
 	//   private void sortAndPrint(int numToPrint)
 	// and then call that method from setUp
 	private void sortAndPrint(int numToPrint) {
-		List<EarthquakeMarker> sortedQuakeMarkers = new ArrayList<EarthquakeMarker>();
-		for (Marker marker : quakeMarkers) {
-			sortedQuakeMarkers.add((EarthquakeMarker)marker);
-		}
+		EarthquakeMarker[] earthquakeArray = quakeMarkers.toArray(new EarthquakeMarker[quakeMarkers.size()]);
 		
-		Collections.sort(sortedQuakeMarkers);
-			
-		for (EarthquakeMarker marker : sortedQuakeMarkers)
-		{
-			
-			System.out.println(marker.getTitle() + " " + marker.getMagnitude());
+		Arrays.sort(earthquakeArray);
+		
+		if (earthquakeArray.length > numToPrint) {
+			for (int i = 0; i < numToPrint; i++) {
+				System.out.println(earthquakeArray[i].getTitle());
+			}
+		} else {
+			for (EarthquakeMarker m : earthquakeArray) {
+				System.out.println(m.getTitle());
+			}
 		}
 	}
 	
