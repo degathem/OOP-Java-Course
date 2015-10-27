@@ -13,10 +13,10 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MultiMarker;
+import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 import de.fhpotsdam.unfolding.providers.Google;
 import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
 import de.fhpotsdam.unfolding.utils.MapUtils;
-import g4p_controls.*;
 import parsing.ParseFeed;
 import processing.core.PApplet;
 
@@ -52,6 +52,9 @@ public class EarthquakeCityMap extends PApplet {
 	private String cityFile = "city-data.json";
 	private String countryFile = "countries.geo.json";
 	
+	// The file containing tectonic plates
+	private String tectonicPlateFile = "plates_edit.geojson";
+	
 	// The map
 	private UnfoldingMap map;
 	
@@ -63,9 +66,14 @@ public class EarthquakeCityMap extends PApplet {
 	// A List of country markers
 	private List<Marker> countryMarkers;
 	
+	// a list of tectonic plate markers
+	private List<Marker> tectonicPlateMarkers;
+	
 	// NEW IN MODULE 5
 	private CommonMarker lastSelected;
 	private CommonMarker lastClicked;
+	
+	private SimplePolygonMarker lastPlateSelected;
 	
 	public void setup() {		
 		// (1) Initializing canvas and map tiles
@@ -119,18 +127,27 @@ public class EarthquakeCityMap extends PApplet {
 
 	    // could be used for debugging
 	    printQuakes();
-	 		
+	 	
+	    // CUSTOM STEP: Read in tectonic plate data
+	    List<Feature> tectonicPlates = GeoJSONReader.loadData(this, tectonicPlateFile);
+	    tectonicPlateMarkers = MapUtils.createSimpleMarkers(tectonicPlates);
+	    styleTectonicPlates(tectonicPlateMarkers);
+	    
 	    // (3) Add markers to map
 	    //     NOTE: Country markers are not added to the map.  They are used
 	    //           for their geometric properties
 	    map.addMarkers(quakeMarkers);
 	    map.addMarkers(cityMarkers);
+	    map.addMarkers(tectonicPlateMarkers);
 	    
 	    sortAndPrint(10);
 	    
 	}  // End setup
 	
 	
+	
+
+
 	public void draw() {
 		background(0);
 		map.draw();
@@ -139,7 +156,7 @@ public class EarthquakeCityMap extends PApplet {
 	}
 	
 	
-	// TODO: Add the method:
+	// Add the method:
 	//   private void sortAndPrint(int numToPrint)
 	// and then call that method from setUp
 	private void sortAndPrint(int numToPrint) {
@@ -173,7 +190,8 @@ public class EarthquakeCityMap extends PApplet {
 		}
 		selectMarkerIfHover(quakeMarkers);
 		selectMarkerIfHover(cityMarkers);
-		//loop();
+		selectPlateIfHover(tectonicPlateMarkers);
+		
 	}
 	
 	// If there is a marker selected 
@@ -193,6 +211,20 @@ public class EarthquakeCityMap extends PApplet {
 				return;
 			}
 		}
+	}
+	
+	// TODO
+	private void selectPlateIfHover(List<Marker> plateMarkers) {
+		Marker hitMarker = map.getFirstHitMarker(mouseX, mouseY);
+	    if (hitMarker != null) {
+	        // Select current marker 
+	        hitMarker.setSelected(true);
+	    } else {
+	        // Deselect all other markers
+	        for (Marker marker : plateMarkers) {
+	            marker.setSelected(false);
+	        }
+	    }
 	}
 	
 	/** The event handler for mouse clicks
@@ -427,6 +459,15 @@ public class EarthquakeCityMap extends PApplet {
 			return true;
 		}
 		return false;
+	}
+	
+	private void styleTectonicPlates(List<Marker> markers) {
+		// TODO Auto-generated method stub
+		for (Marker marker: markers) {
+			marker.setColor(color(1,1,1,1));
+			marker.setStrokeColor(color(150,30,30,75));
+			marker.setStrokeWeight(2);
+		}
 	}
 
 }
