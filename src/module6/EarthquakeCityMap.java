@@ -131,7 +131,7 @@ public class EarthquakeCityMap extends PApplet {
 	    // CUSTOM STEP: Read in tectonic plate data
 	    List<Feature> tectonicPlates = GeoJSONReader.loadData(this, tectonicPlateFile);
 	    tectonicPlateMarkers = MapUtils.createSimpleMarkers(tectonicPlates);
-	    //styleTectonicPlates(tectonicPlateMarkers);
+	    styleTectonicPlates(tectonicPlateMarkers);
 	    
 	    // (3) Add markers to map
 	    //     NOTE: Country markers are not added to the map.  They are used
@@ -141,7 +141,7 @@ public class EarthquakeCityMap extends PApplet {
 	    map.addMarkers(tectonicPlateMarkers);
 	    
 	    sortAndPrint(10);
-	    
+	    System.out.println(tectonicPlateMarkers.get(1).getProperties());
 	}  // End setup
 	
 	
@@ -216,16 +216,18 @@ public class EarthquakeCityMap extends PApplet {
 	// TODO
 	private void selectPlateIfHover(List<Marker> plateMarkers) {
 		// Abort if there's already a marker selected
-			if (lastPlateSelected != null) {
-				return;
-			}
+			//if (lastPlateSelected != null) {
+			//	return;
+			//}
 			
 			for (Marker m : plateMarkers) 
 			{
 				//SimplePolygonMarker marker = (SimplePolygonMarker)m;
+				
 				if (m.isInside(map,  mouseX, mouseY)) {
 					lastPlateSelected = (MultiMarker) m;
 					m.setSelected(true);
+					System.out.println(m.getProperty("PlateName"));
 					return;
 				}
 			}
