@@ -216,20 +216,32 @@ public class EarthquakeCityMap extends PApplet {
 	// TODO
 	private void selectPlateIfHover(List<Marker> plateMarkers) {
 		// Abort if there's already a marker selected
-			//if (lastPlateSelected != null) {
-			//	return;
-			//}
+			
 			
 			for (Marker m : plateMarkers) 
 			{
-				//SimplePolygonMarker marker = (SimplePolygonMarker)m;
+				MultiMarker marker = (MultiMarker)m;
 				
-				if (m.isInside(map,  mouseX, mouseY)) {
-					lastPlateSelected = (MultiMarker) m;
-					m.setSelected(true);
-					System.out.println(m.getProperty("PlateName"));
-					return;
-				}
+				if (m.isInside(map,  mouseX, mouseY) ) {
+					if (lastPlateSelected != null && lastPlateSelected.getProperty("PlateName") == m.getProperty("PlateName")) {
+						System.out.println(lastPlateSelected.getProperty("PlateName") + " " + m.getProperty("PlateName"));
+						lastPlateSelected = marker;
+						marker.setSelected(true);
+						return;
+					} else if (lastPlateSelected != null && lastPlateSelected.getProperty("PlateName") != m.getProperty("PlateName")) {
+						for (Marker mark : plateMarkers) {
+							mark.setSelected(false);
+						}
+						lastPlateSelected = marker;
+						marker.setSelected(true);
+						return;
+					} else {
+						lastPlateSelected = marker;
+						marker.setSelected(true);
+						//System.out.println(m.getProperty("PlateName"));
+						return;
+					}
+				} 
 			}
 	}
 	
