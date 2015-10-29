@@ -13,7 +13,6 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MultiMarker;
-import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 import de.fhpotsdam.unfolding.providers.Google;
 import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -215,15 +214,16 @@ public class EarthquakeCityMap extends PApplet {
 		}
 	}
 	
-	// TODO
+	// Selects and 'highlights' a plate 
+	// I realize that this could also be done by selecting the plate when hovering and chaning the highlightColor and highLightStrokeColor
+	// but I've run out of time, and this implementation works
 	private void selectPlateIfHover(List<Marker> plateMarkers) {
-		// Abort if there's already a marker selected
 		for (Marker m : plateMarkers) 
 		{
 			MultiMarker marker = (MultiMarker)m;
 			if (m.isInside(map, mouseX, mouseY) ) {
 				if (lastPlateSelected != null && lastPlateSelected.getProperty("PlateName") == m.getProperty("PlateName")) {
-					System.out.println(lastPlateSelected.getProperty("PlateName") + " " + m.getProperty("PlateName"));
+					
 					lastPlateSelected = marker;
 					tectonicPlateName = (String) lastPlateSelected.getProperty("PlateName");
 					marker.setStrokeWeight(5);
@@ -231,43 +231,14 @@ public class EarthquakeCityMap extends PApplet {
 				} else if (lastPlateSelected != null && lastPlateSelected.getProperty("PlateName") != m.getProperty("PlateName")) {
 					styleTectonicPlates(tectonicPlateMarkers);
 					lastPlateSelected = marker;
-					//marker.setSelected(true);
 					return;
 				} else {
 					lastPlateSelected = marker;
-					//marker.setSelected(true);
-					//System.out.println(m.getProperty("PlateName"));
 					return;
 				}
 			} 
 		}
 			
-			/**for (Marker m : plateMarkers) 
-			{
-				MultiMarker marker = (MultiMarker)m;
-				
-				if (m.isInside(map,  mouseX, mouseY) ) {
-					if (lastPlateSelected != null && lastPlateSelected.getProperty("PlateName") == m.getProperty("PlateName")) {
-						System.out.println(lastPlateSelected.getProperty("PlateName") + " " + m.getProperty("PlateName"));
-						lastPlateSelected = marker;
-						map.addMarker(lastPlateSelected);
-						//marker.setSelected(true);
-						return;
-					} else if (lastPlateSelected != null && lastPlateSelected.getProperty("PlateName") != m.getProperty("PlateName")) {
-						for (Marker mark : plateMarkers) {
-							mark.setSelected(false);
-						}
-						lastPlateSelected = marker;
-						//marker.setSelected(true);
-						return;
-					} else {
-						lastPlateSelected = marker;
-						//marker.setSelected(true);
-						//System.out.println(m.getProperty("PlateName"));
-						return;
-					}
-				} 
-			}**/
 	}
 	
 	/** The event handler for mouse clicks
@@ -400,13 +371,21 @@ public class EarthquakeCityMap extends PApplet {
 		fill(color(255, 0, 0));
 		ellipse(xbase+35, ybase+180, 12, 12);
 		
+		stroke(150,30,30,75);
+		line(xbase+20, ybase+220, xbase+51, ybase+220);
+		
+		stroke(0);
 		textAlign(LEFT, CENTER);
 		fill(0, 0, 0);
 		text("Shallow", xbase+50, ybase+140);
 		text("Intermediate", xbase+50, ybase+160);
 		text("Deep", xbase+50, ybase+180);
-
+		
 		text("Past hour", xbase+50, ybase+200);
+		text("Tectonic Plate", xbase+50, ybase+220);
+		
+		//Added Tectonic name
+		text(tectonicPlateName , xbase+50, ybase+240);
 		
 		fill(255, 255, 255);
 		int centerx = xbase+35;
@@ -417,10 +396,8 @@ public class EarthquakeCityMap extends PApplet {
 		line(centerx-8, centery-8, centerx+8, centery+8);
 		line(centerx-8, centery+8, centerx+8, centery-8);
 		
-		//Added Tectonic name
-		textAlign(LEFT, CENTER);
-		fill(255, 255, 255);
-		text("PlateName " + tectonicPlateName , xbase+50, ybase+500);
+		
+		
 	}
 
 	
