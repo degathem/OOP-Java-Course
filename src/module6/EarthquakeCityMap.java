@@ -75,6 +75,8 @@ public class EarthquakeCityMap extends PApplet {
 	
 	private MultiMarker lastPlateSelected;
 	
+	private String tectonicPlateName = "";
+	
 	public void setup() {		
 		// (1) Initializing canvas and map tiles
 		size(900, 700, OPENGL);
@@ -139,7 +141,7 @@ public class EarthquakeCityMap extends PApplet {
 	    map.addMarkers(quakeMarkers);
 	    map.addMarkers(cityMarkers);
 	    map.addMarkers(tectonicPlateMarkers);
-	    
+	    //map.addMarker(lastPlateSelected);
 	    sortAndPrint(10);
 	    System.out.println(tectonicPlateMarkers.get(1).getProperties());
 	}  // End setup
@@ -216,9 +218,31 @@ public class EarthquakeCityMap extends PApplet {
 	// TODO
 	private void selectPlateIfHover(List<Marker> plateMarkers) {
 		// Abort if there's already a marker selected
+		for (Marker m : plateMarkers) 
+		{
+			MultiMarker marker = (MultiMarker)m;
+			if (m.isInside(map, mouseX, mouseY) ) {
+				if (lastPlateSelected != null && lastPlateSelected.getProperty("PlateName") == m.getProperty("PlateName")) {
+					System.out.println(lastPlateSelected.getProperty("PlateName") + " " + m.getProperty("PlateName"));
+					lastPlateSelected = marker;
+					tectonicPlateName = (String) lastPlateSelected.getProperty("PlateName");
+					marker.setStrokeWeight(5);
+					return;
+				} else if (lastPlateSelected != null && lastPlateSelected.getProperty("PlateName") != m.getProperty("PlateName")) {
+					styleTectonicPlates(tectonicPlateMarkers);
+					lastPlateSelected = marker;
+					//marker.setSelected(true);
+					return;
+				} else {
+					lastPlateSelected = marker;
+					//marker.setSelected(true);
+					//System.out.println(m.getProperty("PlateName"));
+					return;
+				}
+			} 
+		}
 			
-			
-			for (Marker m : plateMarkers) 
+			/**for (Marker m : plateMarkers) 
 			{
 				MultiMarker marker = (MultiMarker)m;
 				
@@ -226,23 +250,24 @@ public class EarthquakeCityMap extends PApplet {
 					if (lastPlateSelected != null && lastPlateSelected.getProperty("PlateName") == m.getProperty("PlateName")) {
 						System.out.println(lastPlateSelected.getProperty("PlateName") + " " + m.getProperty("PlateName"));
 						lastPlateSelected = marker;
-						marker.setSelected(true);
+						map.addMarker(lastPlateSelected);
+						//marker.setSelected(true);
 						return;
 					} else if (lastPlateSelected != null && lastPlateSelected.getProperty("PlateName") != m.getProperty("PlateName")) {
 						for (Marker mark : plateMarkers) {
 							mark.setSelected(false);
 						}
 						lastPlateSelected = marker;
-						marker.setSelected(true);
+						//marker.setSelected(true);
 						return;
 					} else {
 						lastPlateSelected = marker;
-						marker.setSelected(true);
+						//marker.setSelected(true);
 						//System.out.println(m.getProperty("PlateName"));
 						return;
 					}
 				} 
-			}
+			}**/
 	}
 	
 	/** The event handler for mouse clicks
@@ -392,7 +417,10 @@ public class EarthquakeCityMap extends PApplet {
 		line(centerx-8, centery-8, centerx+8, centery+8);
 		line(centerx-8, centery+8, centerx+8, centery-8);
 		
-		
+		//Added Tectonic name
+		textAlign(LEFT, CENTER);
+		fill(255, 255, 255);
+		text("PlateName " + tectonicPlateName , xbase+50, ybase+500);
 	}
 
 	
@@ -485,6 +513,7 @@ public class EarthquakeCityMap extends PApplet {
 			marker.setColor(color(1,1,1,1));
 			marker.setStrokeColor(color(150,30,30,75));
 			marker.setStrokeWeight(2);
+			
 		}
 	}
 
