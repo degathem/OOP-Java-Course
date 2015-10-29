@@ -141,7 +141,7 @@ public class EarthquakeCityMap extends PApplet {
 	    map.addMarkers(cityMarkers);
 	    map.addMarkers(tectonicPlateMarkers);
 	    //map.addMarker(lastPlateSelected);
-	    sortAndPrint(10);
+	    sortAndPrint(100);
 	    System.out.println(tectonicPlateMarkers.get(1).getProperties());
 	}  // End setup
 	
